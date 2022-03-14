@@ -1,14 +1,16 @@
 {
-  "name": "filestorageapi",
+  "name": "fileSharingAPIServer",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "npm run test"
+    "start": "node -r esm /src/server.js",
+    "dev": "nodemon -r esm /src/server.js",
+    "test": "jest --force-exit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sakibhasancse/FileStorageAPI.git"
+    "url": "git+https://github.com/sakibhasancse/File-Sharing-API-Server.git"
   },
   "keywords": [
     "nodejs",
@@ -17,16 +19,35 @@
   "author": "sakibhasancse",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sakibhasancse/FileStorageAPI/issues"
+    "url": "https://github.com/sakibhasancse/File-Sharing-API-Server/issues"
   },
-  "homepage": "https://github.com/sakibhasancse/FileStorageAPI#readme",
+  "homepage": "https://github.com/sakibhasancse/File-Sharing-API-Server#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "esm": "^3.2.25",
     "express": "^4.17.3",
     "express-rate-limit": "^6.3.0",
     "helmet": "^5.0.2",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.6",
+    "multer": "^1.4.4",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "swagger-ui-express": "^4.3.0",
     "xss": "^1.0.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }
