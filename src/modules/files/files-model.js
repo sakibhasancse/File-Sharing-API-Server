@@ -1,20 +1,16 @@
 import mongoose from 'mongoose'
 import slugify from 'slug'
 
-const bookSchema = mongoose.Schema({
+const FileSchema = mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Please add a Book Name'],
+        required: [true, 'Please add a File Name'],
         trim: true,
-        min: [2, 'Book Name can not be less then 2 characters'],
-        maxlength: [100, 'Book Name can not be more then 100 characters']
+        min: [2, 'File Name can not be less then 2 characters'],
+        maxlength: [100, 'File Name can not be more then 100 characters']
     },
-    slug: {
+    path: {
         type: String
-    },
-    genre: {
-        type: String,
-        required: [true, 'Please add a genre'],
     },
     active: {
         type: Boolean,
@@ -38,6 +34,6 @@ bookSchema.pre('save', function (next) {
     next()
 })
 
-const book = mongoose.model('Book', bookSchema)
+const files = mongoose.model('Files', FileSchema)
 
-export default book
+export default files

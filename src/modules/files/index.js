@@ -1,9 +1,20 @@
-const authRoutes = require("./controller");
-const userRoutes = require("./user-controller");
+import {
+  uploadNewFile,
+  getListFiles,
+  downloadFile,
+  deleteFile
+} from './files-controller';
+  
+const filesRouter = express.Router();
+router
+  .route('/files/:publicKey')
+  .post(uploadNewFile())
+  // .get(getListFiles())
+  .get(downloadFile())
+  .delete(deleteFile());
 
 const init = async (app) => {
-  app.use("/api/auth", authRoutes);
-  app.use("/api/users", userRoutes);
+  app.use("/api", filesRouter);
   return app;
 };
 
