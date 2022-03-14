@@ -12,10 +12,13 @@
     "type": "git",
     "url": "git+https://github.com/sakibhasancse/File-Sharing-API-Server.git"
   },
-  "keywords": [
-    "nodejs",
-    "express"
-  ],
+ "keywords": [
+  "nodejs",
+  "upload",
+  "file",
+  "google cloud storage",
+  "rest api"
+],
   "author": "sakibhasancse",
   "license": "ISC",
   "bugs": {
