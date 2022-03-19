@@ -1,5 +1,5 @@
 import express from 'express';
-import { validatorhandler } from '../middlewares/appMid';
+import { handleValidation } from '../middlewares/appMid';
 import { uploadNewFile, getFiles, deleteFile } from '../controllers/files-controller';
 
 import { isAuth } from '../middlewares/auth';

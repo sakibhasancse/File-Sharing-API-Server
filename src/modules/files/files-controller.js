@@ -4,7 +4,7 @@ const bucket = storage.bucket("bezkoder-e-commerce");
 import format from "util"
 import processFile from "./files-helper"
 
-const uploadNewFile = async (req, res) => {
+export const uploadNewFile = async (req, res) => {
     try {
         await processFile(req, res);
         if (!req.file) {
@@ -45,7 +45,7 @@ const uploadNewFile = async (req, res) => {
         });
     }
 };
-const getListFiles = async (req, res) => {
+export const getListFiles = async (req, res) => {
     try {
         const [files] = await bucket.getFiles();
         let fileInfos = [];
@@ -64,7 +64,7 @@ const getListFiles = async (req, res) => {
     }
 };
 
-const downloadFile = async (req, res) => {
+export const downloadFile = async (req, res) => {
     try {
         const [metaData] = await bucket.file(req.params.name).getMetadata();
         res.redirect(metaData.mediaLink);
@@ -76,7 +76,7 @@ const downloadFile = async (req, res) => {
     }
 };
 
-const deleteFile = async (req, res) => {
+export const deleteFile = async (req, res) => {
     try {
         const [metaData] = await bucket.file(req.params.name).getMetadata();
         res.redirect(metaData.mediaLink);
@@ -86,11 +86,4 @@ const deleteFile = async (req, res) => {
             message: "Could not download the file. " + err,
         });
     }
-};
-
-module.exports = {
-    uploadNewFile,
-    getListFiles,
-    downloadFile,
-    deleteFile
 };

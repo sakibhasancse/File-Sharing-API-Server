@@ -11,7 +11,8 @@ const handleError = async (err, req, res, next) => {
   if (err instanceof GeneralError) {
     code = err.getCode();
   }
-
+  console.log("handleRequest")
+  console.log({ err, req, res, next });
   const correlationId = req?.headers["x-correlation-id"];
   req.log.error(err, { correlationId });
   return (
@@ -26,6 +27,8 @@ const handleError = async (err, req, res, next) => {
 };
 
 const handleRequest = async (req, res, next) => {
+  console.log("handleRequest")
+  console.log({ req, res, next });
   let correlationId = req.headers["x-correlation-id"];
   if (!correlationId) {
     correlationId = uuidv4();
@@ -33,8 +36,8 @@ const handleRequest = async (req, res, next) => {
   }
 
   res.set("x-correlation-id", correlationId);
-  req.log = req.log.child({ correlationId });
-  req.log.info(`new request: ${req.method} ${req.url}`);
+  // req.log = req.log.child({ correlationId });
+  // req.log.info(`new request: ${req.method} ${req.url}`);
   return next();
 };
 

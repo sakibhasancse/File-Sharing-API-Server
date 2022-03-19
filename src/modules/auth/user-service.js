@@ -1,7 +1,7 @@
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
-import User from '../model/user';
+import User from './user-model';
 
 export const usersRagister = async (users, req, res) => {
   const user = await User.findOne({ phone: users.phone })

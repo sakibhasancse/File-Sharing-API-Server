@@ -1,5 +1,5 @@
 import passport from 'passport';
-import User from '../model/user'
+import User from '../modules/auth/user-model'
 export const isAuth = passport.authenticate('jwt', { session: false })
 import { Strategy, ExtractJwt } from 'passport-jwt'
 

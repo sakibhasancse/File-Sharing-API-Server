@@ -29,7 +29,7 @@ const FileSchema = mongoose.Schema({
 
 }, { timestamps: true })
 
-bookSchema.pre('save', function (next) {
+FileSchema.pre('save', function (next) {
     this.slug = slugify(this.name, { lower: true })
     next()
 })

@@ -1,5 +1,5 @@
 
-import User from '../model/user'
+import User from '../modules/auth/user-model'
 import { Strategy, ExtractJwt } from 'passport-jwt'
 
 let opts = {

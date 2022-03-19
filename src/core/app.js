@@ -6,8 +6,9 @@ import express from 'express'
 import helmet from 'helmet'
 import xss from 'xss-clean'
 import rateLimit from 'express-rate-limit'
-import hpp from 'hpp'
+import ExpressPinoLogger from "express-pino-logger"
 require("dotenv").config();
+
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -38,7 +39,7 @@ const logger = ExpressPinoLogger({
       params: req.params,
       headers: {
         "user-agent": req.headers["user-agent"],
-        "session-id": req.headers["session-id"] ?? "",
+        "session-id": req.headers["session-id"] || '',
         host: req.headers.host,
       },
       remoteAddress: req.remoteAddress,
@@ -65,7 +66,7 @@ app.use(limiter);
 app.use(express.json());
 app.use(logger);
 
-const swaggerDocument = require("../swagger.json");
+const swaggerDocument = require("../api-documentation/swagger.json");
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 

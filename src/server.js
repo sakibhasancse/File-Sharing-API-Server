@@ -1,15 +1,3 @@
-
-import bodyparser from 'body-parser'
-import cors from 'cors'
-import express from 'express'
-import helmet from 'helmet'
-import xss from 'xss-clean'
-import { errorhandle } from './middlewares/appMid'
-import rateLimit from 'express-rate-limit'
-import  hpp from 'hpp'
-const app = express()
-const AppError = require('./utils/appError');
-import { filesRouter, userRouter} from './routers'
 const { setup: setupCore } = require("./core");
 const { init } = require("./modules");
 const { handleError, handleRequest } = require("./common/middlewares");
@@ -29,7 +17,7 @@ const start = async () => {
     app2.get("/", (req, res) => {
       res.send("Hello World!");
     });
-    app2.use(handleError);
+    // app2.use(handleError);
     return app2;
   };
 
