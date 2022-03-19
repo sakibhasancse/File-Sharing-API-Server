@@ -7,18 +7,15 @@ const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   const initModules = async (app) => {
-    const app2 = await init(app);
-    return app2;
+    const appHandle = await init(app);
+    return appHandle;
   };
 
   const configureRoutes = async (app) => {
     app.use(handleRequest);
-    const app2 = await initModules(app);
-    app2.get("/", (req, res) => {
-      res.send("Hello World!");
-    });
-    // app2.use(handleError);
-    return app2;
+    const appHandle = await initModules(app);
+    appHandle.use(handleError);
+    return appHandle;
   };
 
   const { app, eventEmitter, connectWithDb, logger } = await setupCore();
