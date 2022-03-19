@@ -1,21 +1,15 @@
-import  mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import "dotenv"
-
-const isMongoDbUrl = JSON.parse(
-  process.env.IS_MONGODB_CLOUD_URL ? process.env.IS_MONGODB_CLOUD_URL : "false"
-);
-const uri = isMongoDbUrl
-  ? process.env.MONGODB_CLOUD_URL
-  : `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
+  // useCreateIndex: true,
 };
+const url = process.env.MONGO_DB_URL;
+
 const connectWithDb = async (cb, em) => {
-  const connectionResult = await mongoose.connect(uri, options);
-  // eslint-disable-next-line no-console
+  const connectionResult = await mongoose.connect(url, options);
   console.log(
     `Connected to mongoDB on database:
     ${connectionResult.connections[0].name} at ${new Date().toDateString()}`

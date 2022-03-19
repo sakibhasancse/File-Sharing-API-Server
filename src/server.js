@@ -34,7 +34,7 @@ const start = async () => {
 
       eventEmitter.on("databaseConnectionEstablished", () => {
         logger.info(
-          "eventEmitterHealthCheck()=> Database connection established"
+          "Database connection established"
         );
       });
 
