@@ -14,20 +14,20 @@
 
   <img alt="License" src="https://img.shields.io/github/license/sakibhasancse/File-Sharing-API-Server?color=56BEB8">
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/sakibhasancse/File-Sharing-API-Server?color=56BEB8" /> -->
+  <img alt="Github issues" src="https://img.shields.io/github/issues/sakibhasancse/File-Sharing-API-Server?color=56BEB8" /> 
 
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/sakibhasancse/File-Sharing-API-Server?color=56BEB8" /> -->
+  <img alt="Github forks" src="https://img.shields.io/github/forks/sakibhasancse/File-Sharing-API-Server?color=56BEB8" />
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/sakibhasancse/File-Sharing-API-Server?color=56BEB8" /> -->
+   <img alt="Github stars" src="https://img.shields.io/github/stars/sakibhasancse/File-Sharing-API-Server?color=56BEB8" />
 </p>
 
-<!-- Status -->
+ Status 
 
-<!-- <h4 align="center"> 
+<h4 align="center"> 
 	🚧  File-Sharing-API-Server 🚀 Under construction...  🚧
 </h4> 
 
-<hr> -->
+<hr> 
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
