@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
-const { GeneralError, BadRequest } = require("./errors");
+import jwt from "jsonwebtoken";
+import { v4 } from "uuid";
+import { GeneralError, BadRequest } from "./errors";
 
 const handleError = async (err, req, res, next) => {
-  if (res?.headersSent) {
+  if (res && res?.headersSent) {
     return next(err);
   }
 
@@ -11,8 +11,6 @@ const handleError = async (err, req, res, next) => {
   if (err instanceof GeneralError) {
     code = err.getCode();
   }
-  console.log("handleRequest")
-  console.log({ err, req, res, next });
   const correlationId = req?.headers["x-correlation-id"];
   req.log.error(err, { correlationId });
   return (
@@ -27,17 +25,15 @@ const handleError = async (err, req, res, next) => {
 };
 
 const handleRequest = async (req, res, next) => {
-  console.log("handleRequest")
-  console.log({ req, res, next });
   let correlationId = req.headers["x-correlation-id"];
   if (!correlationId) {
-    correlationId = uuidv4();
+    correlationId = v4();
     req.headers["x-correlation-id"] = correlationId;
   }
 
   res.set("x-correlation-id", correlationId);
-  // req.log = req.log.child({ correlationId });
-  // req.log.info(`new request: ${req.method} ${req.url}`);
+  req.log = req.log.child({ correlationId });
+  req.log.info(`new request: ${req.method} ${req.url}`);
   return next();
 };
 
