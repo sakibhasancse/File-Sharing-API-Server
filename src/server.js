@@ -1,6 +1,6 @@
-const { setup: setupCore } = require("./core");
-const { init } = require("./modules");
-const { handleError, handleRequest } = require("./common/middlewares");
+import { setup } from "./core"
+import { init } from "./modules"
+import { handleError, handleRequest } from "./common/middlewares"
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
@@ -18,12 +18,12 @@ const start = async () => {
     return appHandle;
   };
 
-  const { app, eventEmitter, connectWithDb, logger } = await setupCore();
+  const { app, eventEmitter, connectWithDb, logger } = await setup();
 
   try {
     await configureRoutes(app);
     app.listen(PORT, async () => {
-      logger.info(`Server started on port ${PORT}`);
+      logger.info(`Server started on http://localhost:${PORT}`);
 
       const broadcastDatabaseConnectionEstablished = (em) => {
         em.emit("databaseConnectionEstablished");
