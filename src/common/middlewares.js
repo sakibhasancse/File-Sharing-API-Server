@@ -2,8 +2,13 @@ import jwt from "jsonwebtoken";
 import { v4 } from "uuid";
 import { GeneralError, BadRequest } from "./errors";
 
-const handleError = async (err, req, res, next) => {
-  if (res && res?.headersSent) {
+export const handleError = async (err, req, res, next) => {
+  if (!res) {
+    console.log(err.message)
+    return
+
+  }
+  if (res && res.headersSent) {
     return next(err);
   }
 
@@ -11,7 +16,7 @@ const handleError = async (err, req, res, next) => {
   if (err instanceof GeneralError) {
     code = err.getCode();
   }
-  const correlationId = req?.headers["x-correlation-id"];
+  const correlationId = req.headers["x-correlation-id"];
   req.log.error(err, { correlationId });
   return (
     res &&
@@ -24,7 +29,7 @@ const handleError = async (err, req, res, next) => {
   );
 };
 
-const handleRequest = async (req, res, next) => {
+export const handleRequest = async (req, res, next) => {
   let correlationId = req.headers["x-correlation-id"];
   if (!correlationId) {
     correlationId = v4();
@@ -37,7 +42,7 @@ const handleRequest = async (req, res, next) => {
   return next();
 };
 
-const handleValidation = (validate) => (req, res, next) => {
+export const handleValidation = (validate) => (req, res, next) => {
   const result = validate(req.body);
   const isValid = result.error == null;
   if (isValid) {
@@ -52,7 +57,7 @@ const handleValidation = (validate) => (req, res, next) => {
   return res.status(400).send({ status: "error", message: msg });
 };
 
-const authenticateRequest = async (req, res, next) => {
+export const authenticateRequest = async (req, res, next) => {
   let auth = req.headers.authorization;
   if (auth) {
     auth = auth.replace("Bearer ", "");
@@ -79,9 +84,3 @@ const authenticateRequest = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  handleError,
-  handleRequest,
-  handleValidation,
-  authenticateRequest,
-};

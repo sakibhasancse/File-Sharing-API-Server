@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const eventEmitter = require("./event-manager").getInstance();
+import mongoose from 'mongoose';
+import eventEmitter from "./event-manager"
+eventEmitter.getInstance();
 
 const save = async (item, modelName) => {
   const model = new mongoose.models[modelName](item);
@@ -40,4 +41,4 @@ const searchOne = async (query, modelName) => {
   return data;
 };
 
-module.exports = { save, update, deleteById, getById, searchOne };
+export default { save, update, deleteById, getById, searchOne };

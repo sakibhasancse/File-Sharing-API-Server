@@ -1,7 +1,8 @@
-import { setup } from "./core"
-import { init } from "./modules"
-import { handleError, handleRequest } from "./common/middlewares"
-require("dotenv").config();
+import { setup } from "./core";
+import { init } from "./modules";
+import { handleError, handleRequest } from "./common/middlewares";
+import dotenv from 'dotenv';
+dotenv.config()
 
 const PORT = process.env.PORT || 5000;
 

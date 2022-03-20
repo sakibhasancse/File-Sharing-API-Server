@@ -7,7 +7,8 @@ import helmet from 'helmet'
 import xss from 'xss-clean'
 import rateLimit from 'express-rate-limit'
 import ExpressPinoLogger from "express-pino-logger"
-require("dotenv").config();
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 const limiter = rateLimit({
@@ -66,8 +67,8 @@ app.use(limiter);
 app.use(express.json());
 app.use(logger);
 
-const swaggerDocument = require("../api-documentation/swagger.json");
+import swaggerDocument from "../api-documentation/swagger.json"
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-module.exports = app;
+export default app;

@@ -1,5 +1,4 @@
-/* eslint-disable class-methods-use-this */
-// eslint-disable-next-line max-classes-per-file
+
 class GeneralError extends Error {
   constructor(message) {
     super();
@@ -44,4 +43,4 @@ class MongoError extends GeneralError {
   }
 }
 
-module.exports = { GeneralError, BadRequest, NotFound, MongoError };
+export { GeneralError, BadRequest, NotFound, MongoError };

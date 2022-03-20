@@ -18,4 +18,4 @@ const init = async (app) => {
   return app;
 };
 
-module.exports = { init };
+export default { init };

@@ -1,5 +1,6 @@
-const logger = require("pino")();
-const { GeneralError, BadRequest } = require("../common/errors");
+import logger from "pino"
+logger();
+import { GeneralError, BadRequest } from "../common/errors"
 
 const handleError = async (err, req, res, next) => {
     if (res.headersSent) {
@@ -46,4 +47,4 @@ const handleValidation = (validate) => (req, res, next) => {
     const msg = messages.join(",");
     throw new BadRequest(msg);
 };
-module.exports = { handleError, handleRequest, handleValidation };
+export { handleError, handleRequest, handleValidation };

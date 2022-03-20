@@ -13,4 +13,4 @@ class EventManager {
   }
 }
 
-module.exports = new EventManager();
+export default EventManager;
