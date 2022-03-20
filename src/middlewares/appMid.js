@@ -36,6 +36,7 @@ const handleRequest = async (req, res, next) => {
 };
 
 const handleValidation = (validate) => (req, res, next) => {
+    console.log({ req: req.body })
     const result = validate(req.body);
     const isValid = result.error == null;
     if (isValid) {

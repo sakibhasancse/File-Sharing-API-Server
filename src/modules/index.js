@@ -1,6 +1,6 @@
-import fs from "fs";
+const fs = require("fs");
 
-export const init = async (app) => {
+const appModule = async (app) => {
   const rootPath = __dirname;
   const moduleNames = await fs.promises.readdir(rootPath);
   await Promise.all(
@@ -17,3 +17,5 @@ export const init = async (app) => {
   );
   return app;
 };
+
+export default appModule

@@ -17,5 +17,4 @@ const init = async (app) => {
   app.use("/api", filesRouter);
   return app;
 };
-
-export default { init };
+module.exports = { init };

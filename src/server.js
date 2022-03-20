@@ -1,5 +1,5 @@
 import { setup } from "./core";
-import { init } from "./modules";
+import appModules from "./modules";
 import { handleError, handleRequest } from "./common/middlewares";
 import dotenv from 'dotenv';
 dotenv.config()
@@ -8,13 +8,17 @@ const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   const initModules = async (app) => {
-    const appHandle = await init(app);
+    const appHandle = await appModules(app);
     return appHandle;
   };
 
   const configureRoutes = async (app) => {
     app.use(handleRequest);
+
     const appHandle = await initModules(app);
+    appHandle.get('/', (req, res) => {
+      res.send('hello')
+    })
     appHandle.use(handleError);
     return appHandle;
   };
@@ -40,6 +44,7 @@ const start = async () => {
       logger.info(`Database connection established at ${new Date()}`);
     });
   } catch (err) {
+    console.error({ err });
     handleError(err);
   }
 };

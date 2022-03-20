@@ -25,4 +25,4 @@ const init = async (app) => {
   app.use("/api/user", router);
   return app;
 };
-export default { init };
+module.exports = { init };
