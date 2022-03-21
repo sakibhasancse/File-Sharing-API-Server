@@ -5,7 +5,7 @@ const fileSize = process.env.MAX_FILE_SIZE || 2
 const maxSize = fileSize * 1024 * 1024;
 const hasCloudStorage = process.env.GOOGLE_CLOUD_PROJECT_ID ? true : false;
 import path from 'path';
-
+import { JwtToken } from './../../core'
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '../../../assets/upload/'))
@@ -30,3 +30,13 @@ export const processFile = util.promisify(multerConfig);
 //   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
 //   keyFilename: process.env.GOOGLE_CLOUD_KEYFILE,
 // });
+
+export const fileTokens = async (file) => {
+  const publicToken = await JwtToken({ type: 'File', data: { path: file.path }, expiresIn: `${process.env.FILE_EXPIR}` });
+  const privateToken = await JwtToken({ type: 'File', data: file, expiresIn: `${process.env.FILE_EXPIR}` });
+  const tokens = {
+    publicToken,
+    privateToken
+  }
+  return tokens
+}

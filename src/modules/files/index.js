@@ -10,7 +10,9 @@ const filesRouter = express.Router();
 filesRouter
   .route('/files')
   .post(uploadNewFile)
-  // .get(getListFiles())
+  .get(getListFiles);
+
+filesRouter.route('/files/accessToken')
   .get(downloadFile)
   .delete(deleteFile);
 

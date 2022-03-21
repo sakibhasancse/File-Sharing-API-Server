@@ -66,6 +66,10 @@ export const getFile = async (query) => {
   const file = await File.findOne(query);
   return file;
 }
+export const getFileLists = async (query) => {
+  const file = await File.find(query);
+  return file;
+}
 export const removeFile = async (query) => {
   const file = await File.remove(query);
   return file;
