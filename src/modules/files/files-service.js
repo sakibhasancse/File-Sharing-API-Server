@@ -1,10 +1,11 @@
 import { Storage } from "@google-cloud/storage"
-const storage = new Storage({ keyFilename: "google-cloud-key.json" });
+const storage = new Storage({ keyFilename: "" });
 const bucket = storage.bucket("bezkoder-e-commerce");
-import format from "util"
+import format from "util";
+import File from './files-model'
 
 export const googleCloudStorage = {
-  fileUpload: (req,res) => {
+  fileUpload: (req, res) => {
     // Create a new blob in the bucket and upload the file data.
     const blob = bucket.file(req.file.originalname);
     const blobStream = blob.createWriteStream({
@@ -35,15 +36,15 @@ export const googleCloudStorage = {
     });
     blobStream.end(req.file.buffer);
   },
-  fileDownload: (req, res) => {
+  fileDownload: async (req, res) => {
     const [metaData] = await bucket.file(req.params.name).getMetadata();
     res.redirect(metaData.mediaLink);
   },
-  fileDelete: (req, res) => {
+  fileDelete: async (req, res) => {
     const [metaData] = await bucket.file(req.params.name).getMetadata();
     res.redirect(metaData.mediaLink);
   },
-  fileList: (req, res) => {
+  fileList: async (req, res) => {
     const [files] = await bucket.getFiles();
     let fileInfos = [];
     files.forEach((file) => {
@@ -54,4 +55,18 @@ export const googleCloudStorage = {
     });
     res.status(200).send(fileInfos);
   }
+}
+
+export const saveAnFile = async (formData) => {
+  const newFile = new File(formData);
+  const file = await newFile.save();
+  return file;
+}
+export const getFile = async (query) => {
+  const file = await File.findOne(query);
+  return file;
+}
+export const removeFile = async (query) => {
+  const file = await File.remove(query);
+  return file;
 }

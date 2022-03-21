@@ -1,22 +1,31 @@
-import processFile from "./files-helper"
-import { googleCloudStorage } from "./files-service";
+import { processFile } from "./files-helper"
+import { googleCloudStorage, saveAnFile } from "./files-service";
 
 export const uploadNewFile = async (req, res) => {
     try {
-        await processFile(req, res);
+        await processFile(req, res)
         if (!req.file) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
-        await googleCloudStorage.fileUpload(req, res)
+        const file = req.file;
+        const user = req.user;
+        const fileData = {
+            name: req.body.title ? req.body.title : file.originalname,
+            size: file.size,
+            author: user.userId,
+            path: file.filename,
+        }
+        await saveAnFile(fileData)
+        // await googleCloudStorage.fileUploadasync(req, res)
     } catch (err) {
         res.status(500).send({
-            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+            message: `Could not upload the file. ${err && err.message}`,
         });
     }
 };
 export const getListFiles = async (req, res) => {
     try {
-        await googleCloudStorage.fileList(req, res)
+        await googleCloudStorage.fileListasync(req, res)
     } catch (err) {
         console.log(err);
         res.status(500).send({
@@ -27,7 +36,7 @@ export const getListFiles = async (req, res) => {
 
 export const downloadFile = async (req, res) => {
     try {
-      await googleCloudStorage.fileDownload(req, res)
+        await googleCloudStorage.fileDownloadasync(req, res)
 
     } catch (err) {
         res.status(500).send({
@@ -38,7 +47,7 @@ export const downloadFile = async (req, res) => {
 
 export const deleteFile = async (req, res) => {
     try {
-       await googleCloudStorage.fileDelete(req,res)
+        await googleCloudStorage.fileDeleteasync(req, res)
 
     } catch (err) {
         res.status(500).send({

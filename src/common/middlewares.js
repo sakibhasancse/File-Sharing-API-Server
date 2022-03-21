@@ -35,7 +35,9 @@ export const handleRequest = async (req, res, next) => {
     correlationId = v4();
     req.headers["x-correlation-id"] = correlationId;
   }
+  let user = { email: 'sakib', userId: '6236acc0ae3b656f28e334a8' };
 
+  req.user = user;
   res.set("x-correlation-id", correlationId);
   req.log = req.log.child({ correlationId });
   req.log.info(`new request: ${req.method} ${req.url}`);

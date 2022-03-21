@@ -1,4 +1,4 @@
-<div align="center" id="top"> 
+<div align="center" id="top">
 
   <!-- <a href="https://File-Sharing-API-Server.netlify.app">Demo</a> -->
 </div>
@@ -14,20 +14,20 @@
 
   <img alt="License" src="https://img.shields.io/github/license/sakibhasancse/File-Sharing-API-Server?color=56BEB8">
 
-  <img alt="Github issues" src="https://img.shields.io/github/issues/sakibhasancse/File-Sharing-API-Server?color=56BEB8" /> 
+  <img alt="Github issues" src="https://img.shields.io/github/issues/sakibhasancse/File-Sharing-API-Server?color=56BEB8" />
 
   <img alt="Github forks" src="https://img.shields.io/github/forks/sakibhasancse/File-Sharing-API-Server?color=56BEB8" />
 
    <img alt="Github stars" src="https://img.shields.io/github/stars/sakibhasancse/File-Sharing-API-Server?color=56BEB8" />
 </p>
 
- Status 
+Status
 
 <h4 align="center"> 
 	🚧  File-Sharing-API-Server 🚀 Under construction...  🚧
-</h4> 
+</h4>
 
-<hr> 
+<hr>
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
@@ -41,29 +41,28 @@
 
 <br>
 
-## :dart: About ##
+## :dart: About
 
 Describe your project
 
-## :sparkles: Features ##
+## :sparkles: Features
 
 :heavy_check_mark: Feature 1;\
 :heavy_check_mark: Feature 2;\
 :heavy_check_mark: Feature 3;
 
-## :rocket: Technologies ##
+## :rocket: Technologies
 
 The following tools were used in this project:
 
-- [Express](https://express.io/)
-- [Node.js](https://nodejs.org/en/)
+-   [Express](https://express.io/)
+-   [Node.js](https://nodejs.org/en/)
 
-
-## :white_check_mark: Requirements ##
+## :white_check_mark: Requirements
 
 Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
 
-## :checkered_flag: Starting ##
+## :checkered_flag: Starting
 
 ```bash
 # Clone this project
@@ -81,10 +80,9 @@ $ yarn start
 # The server will initialize in the <http://localhost:3000>
 ```
 
-## :memo: License ##
+<!-- ## :memo: License ##
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
-
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file. -->
 
 Made with :heart: by <a href="https://github.com/sakibhasancse" target="_blank">Sakib Hasan</a>
 

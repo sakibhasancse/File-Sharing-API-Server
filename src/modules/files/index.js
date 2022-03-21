@@ -6,8 +6,9 @@ import {
 } from './files-controller';
 import express from 'express';
 const filesRouter = express.Router();
+
 filesRouter
-  .route('/files/:publicKey')
+  .route('/files')
   .post(uploadNewFile)
   // .get(getListFiles())
   .get(downloadFile)
