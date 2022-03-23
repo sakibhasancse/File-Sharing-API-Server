@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon -r esm src/server.js | pino-pretty -c -L",
     "dev": "nodemon -r esm src/server.js",
+    "job-start": "node -r esm src/startup/index.js",
     "test": "jest --force-exit"
   },
   "repository": {
