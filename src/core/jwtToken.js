@@ -15,7 +15,7 @@ export const verifyToken = async ({ type = 'SignUp', token }) => {
   try {
     let secret = '';
     if (type === 'SignUp') {
-      secret = process.env.SIGN_UP_JWT_SECRET
+      secret = process.env.USER_AUTH_JWT_SECRET
     } else if (type === 'File') {
       secret = process.env.FILE_ACCESS_JWT_SECRET
     }
