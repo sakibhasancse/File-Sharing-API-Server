@@ -12,7 +12,7 @@ filesRouter
   .post(uploadNewFile)
   .get(getListFiles);
 
-filesRouter.route('/files/accessToken')
+filesRouter.route('/files/:publicToken')
   .get(downloadFile)
   .delete(deleteFile);
 
