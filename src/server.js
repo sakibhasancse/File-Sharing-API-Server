@@ -16,9 +16,6 @@ const start = async () => {
     app.use(handleRequest);
 
     const appHandle = await initModules(app);
-    appHandle.get('/', async (req, res) => {
-      res.send('hello')
-    })
     appHandle.use(handleError);
     return appHandle;
   };

@@ -13,7 +13,7 @@
   "basePath": "/api",
   "tags": [
     {
-      "name": "RBAC",
+      "name": "File storage api service",
       "description": "API for the system"
     }
   ],

@@ -69,6 +69,6 @@ app.use(logger);
 
 import swaggerDocument from "../api-documentation/swagger.json"
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 export default app;
