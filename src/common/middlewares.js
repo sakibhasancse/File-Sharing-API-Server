@@ -35,8 +35,15 @@ export const handleRequest = async (req, res, next) => {
     correlationId = v4();
     req.headers["x-correlation-id"] = correlationId;
   }
-  let user = { email: 'sakib', userId: '6236acc0ae3b656f28e334a8' };
 
+  let user = process.env.USE_DEMO_USER ? { email: 'me.sakib20@gmail.com', userId: '6236acc0ae3b656f28e334a8' } : false
+  if (!user) {
+    const validUser = await authenticatedUser(req)
+    if (!validUser || validUser && validUser.error) {
+      return res.status(401).send({ error: "Unauthenticated request" });
+    }
+    user = validUser.data
+  }
   req.user = user;
   res.set("x-correlation-id", correlationId);
   req.log = req.log.child({ correlationId });
@@ -59,6 +66,19 @@ export const handleValidation = (validate) => (req, res, next) => {
   return res.status(400).send({ status: "error", message: msg });
 };
 
+const authenticatedUser = async (req) => {
+  try {
+    let auth = req.headers.authorization;
+    if (auth) {
+      auth = auth.replace("Bearer ", "");
+      return await verifyToken({ auth })
+    } else {
+      res.status(401).send({ error: "Unauthenticated request" });
+    }
+  } catch (error) {
+    return { error: "Unauthenticated request" }
+  }
+}
 export const authenticateRequest = async (req, res, next) => {
   let auth = req.headers.authorization;
   if (auth) {

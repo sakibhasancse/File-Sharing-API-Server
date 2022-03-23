@@ -1,14 +1,15 @@
 
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
-import User from './user-model';
 
-export const usersRagister = async (users, req, res) => {
-  const user = await User.findOne({ phone: users.phone })
+import User from './user-model';
+import JwtToken from '../../core/jwtToken'
+
+export const usersRegister = async (users, req, res) => {
+  const user = await User.findOne({ email: users.email })
   if (user) {
     return res.status(400).json({
       success: false,
-      message: 'Phone Number already exists '
+      message: 'Email Number already exists '
     })
   }
   const password = await bcrypt.hash(users.password, 12)
@@ -18,11 +19,31 @@ export const usersRagister = async (users, req, res) => {
 
   })
   const result = await newUser.save()
+  delete result.password
+
+
+  const accessToken = await JwtToken({
+    data: {
+      userId: result._id,
+      email: result.email
+    }, expiresIn: `${process.env.JWT_ACCESS_TOKEN_EXPIRE}`
+  });
+
+  const refreshToken = await JwtToken({
+    data: {
+      userId: result._id
+    }, expiresIn: `${process.env.JWT_REFRESH_TOKEN_EXPIRE}`
+  });
+
+
   if (result) {
     return res.status(201).json({
       success: true,
       result,
-      message: `${result.role} Created successfully`
+      tokens: {
+        accessToken,
+        refreshToken
+      }
     })
   }
   return res.status(400).json({
@@ -35,35 +56,47 @@ export const usersRagister = async (users, req, res) => {
 
 export const usersLogin = async (users, res) => {
 
-  const { phone, password } = users
-  const userPhone = await User.findOne({ phone })
-  if (!userPhone) {
+  const { email, password } = users
+  const user = await User.findOne({ email })
+  if (!user) {
     return res.status(400).json({
       success: false,
-      message: 'Invalid Phone And Password'
+      message: 'Invalid Email And Password'
     })
   }
 
-  const isMatch = await bcrypt.compare(password, userPhone.password)
+  const isMatch = await bcrypt.compare(password, user.password)
   if (!isMatch) {
     return res.status(400).json({
       success: false,
-      message: 'Invalid Phone And Password'
+      message: 'Invalid email And Password'
     })
   } else {
-    let token = jwt.sign({
-      userId: userPhone._id,
-      role: userPhone.role,
-      phone: userPhone.phone,
-      password: userPhone.password
-    }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIR })
+
+    const accessToken = await JwtToken({
+      data: {
+        userId: user._id,
+        email: user.email
+      }, expiresIn: `${process.env.JWT_ACCESS_TOKEN_EXPIRE}`
+    });
+
+    const refreshToken = await JwtToken({
+      data: {
+        userId: user._id
+      }, expiresIn: `${process.env.JWT_REFRESH_TOKEN_EXPIRE}`
+    });
 
     return res.status(200).json({
       success: true,
       message: 'Login successful',
-      name: userPhone.name,
-      phone: userPhone.phone,
-      token: `Bearer ${token}`
+      user: {
+        name: user.name,
+        user: user.email,
+      },
+      tokens: {
+        accessToken,
+        refreshToken
+      }
     })
   }
 

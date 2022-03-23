@@ -1,9 +1,9 @@
 
-import { usersRagister, usersLogin } from './user-service';
+import { usersRegister, usersLogin } from './user-service';
 import User from './user-model'
-export const userRagister = async (req, res, next) => {
+export const userRegister = async (req, res, next) => {
     try {
-        await usersRagister(req.body, req, res)
+        await usersRegister(req.body, req, res)
     } catch (error) {
         return next(error, req, res)
     }

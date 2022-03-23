@@ -32,8 +32,8 @@ export const processFile = util.promisify(multerConfig);
 // });
 
 export const fileTokens = async (file) => {
-  const publicToken = await JwtToken({ type: 'File', data: { path: file.path }, expiresIn: `${process.env.FILE_EXPIR}` });
-  const privateToken = await JwtToken({ type: 'File', data: file, expiresIn: `${process.env.FILE_EXPIR}` });
+  const publicToken = await JwtToken({ type: 'File', data: { path: file.path }, expiresIn: `${process.env.FILE_EXPIRE}` });
+  const privateToken = await JwtToken({ type: 'File', data: file, expiresIn: `${process.env.FILE_EXPIRE}` });
   const tokens = {
     publicToken,
     privateToken

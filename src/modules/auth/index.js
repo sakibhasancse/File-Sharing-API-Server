@@ -1,15 +1,14 @@
 import express from 'express';
-import { handleValidation } from '../../middlewares/appMid';
-import { userRagister, userLogin, userProfile } from './user-controller';
+import { handleValidation, isAuth} from '../../common/middlewares';
+import { userRegister, userLogin, userProfile } from './user-controller';
 import user from './user-model';
-import { isAuth } from '../../middlewares/auth';
 
 
 const router = express.Router();
 
 router
   .route('/signup')
-  .post(handleValidation(user), userRagister)
+  .post(handleValidation(user), userRegister)
 
 router
   .route('/signin')

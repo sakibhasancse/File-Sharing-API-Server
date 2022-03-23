@@ -8,7 +8,7 @@ export const uploadNewFile = async (req, res) => {
         await processFile(req, res);
         const { file = {}, user = {}, body = {} } = req
 
-        if (file.lenght) {
+        if (!file.length) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
         const fileData = {
