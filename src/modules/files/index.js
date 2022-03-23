@@ -11,7 +11,7 @@ const filesRouter = express.Router();
 filesRouter
   .route('/files')
   .post(isAuth, uploadNewFile)
-  .get(getListFiles);
+  .get(isAuth, getListFiles);
 
 filesRouter.route('/files/:publicToken')
   .get(downloadFile)
