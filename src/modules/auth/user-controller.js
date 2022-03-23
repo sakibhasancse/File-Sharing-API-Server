@@ -3,6 +3,7 @@ import { usersRegister, usersLogin } from './user-service';
 import User from './user-model'
 export const userRegister = async (req, res, next) => {
     try {
+        console.log(req.body)
         await usersRegister(req.body, req, res)
     } catch (error) {
         return next(error, req, res)

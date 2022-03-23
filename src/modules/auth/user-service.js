@@ -9,7 +9,7 @@ export const usersRegister = async (users, req, res) => {
   if (user) {
     return res.status(400).json({
       success: false,
-      message: 'Email Number already exists '
+      message: 'Email already exists '
     })
   }
   const password = await bcrypt.hash(users.password, 12)
@@ -18,9 +18,7 @@ export const usersRegister = async (users, req, res) => {
     password,
 
   })
-  const result = await newUser.save()
-  delete result.password
-
+  var result = await newUser.save()
 
   const accessToken = await JwtToken({
     data: {
@@ -34,12 +32,14 @@ export const usersRegister = async (users, req, res) => {
       userId: result._id
     }, expiresIn: `${process.env.JWT_REFRESH_TOKEN_EXPIRE}`
   });
-
-
   if (result) {
     return res.status(201).json({
       success: true,
-      result,
+      user: {
+        id: result._id,
+        email: result.email,
+        name: result.name
+      },
       tokens: {
         accessToken,
         refreshToken

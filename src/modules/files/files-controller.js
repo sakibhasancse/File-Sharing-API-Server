@@ -2,13 +2,13 @@ import { verifyToken } from "../../core/jwtToken";
 import { fileTokens, processFile } from "./files-helper"
 import { googleCloudStorage, saveAnFile, getFile, getFileLists, removeFile } from "./files-service";
 import fs from 'fs';
+import { size } from 'loadsh'
 
 export const uploadNewFile = async (req, res) => {
     try {
         await processFile(req, res);
         const { file = {}, user = {}, body = {} } = req
-
-        if (!file.length) {
+        if (!size(file)) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
         const fileData = {

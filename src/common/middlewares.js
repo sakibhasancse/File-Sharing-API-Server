@@ -35,14 +35,12 @@ export const handleRequest = async (req, res, next) => {
     correlationId = v4();
     req.headers["x-correlation-id"] = correlationId;
   }
-
   let user = process.env.USE_DEMO_USER ? { email: 'me.sakib20@gmail.com', userId: '6236acc0ae3b656f28e334a8' } : false
   if (!user) {
     const validUser = await authenticatedUser(req)
     if (!validUser || validUser && validUser.error) {
-      return res.status(401).send({ error: "Unauthenticated request" });
-    }
-    user = validUser.data
+      user = {}
+    } else user = validUser.data
   }
   req.user = user;
   res.set("x-correlation-id", correlationId);
@@ -55,7 +53,6 @@ export const handleValidation = (validate) => (req, res, next) => {
   const result = validate(req.body);
   const isValid = result.error == null;
   if (isValid) {
-    req.body = result.value;
     return next();
   }
 
@@ -64,6 +61,29 @@ export const handleValidation = (validate) => (req, res, next) => {
   const msg = messages.join(",");
   // throw new BadRequest(msg);
   return res.status(400).send({ status: "error", message: msg });
+};
+
+export const isAuth = async (req, res, next) => {
+  try {
+    let auth = req.headers.authorization;
+    if (auth) {
+      let user = process.env.USE_DEMO_USER ? true : false
+      if (!user) {
+        const validUser = await authenticatedUser(req)
+        if (!validUser || validUser && validUser.error) {
+          res.status(401).send({ error: "Unauthenticated request" });
+        } else {
+          return next()
+        }
+      }
+      return next()
+    } else {
+      res.status(401).send({ error: "Unauthenticated request" });
+    }
+  } catch (error) {
+    res.status(401).send({ error: "Unauthenticated request" });
+  }
+
 };
 
 const authenticatedUser = async (req) => {
@@ -79,30 +99,6 @@ const authenticatedUser = async (req) => {
     return { error: "Unauthenticated request" }
   }
 }
-export const authenticateRequest = async (req, res, next) => {
-  let auth = req.headers.authorization;
-  if (auth) {
-    auth = auth.replace("Bearer ", "");
-    jwt.verify(auth, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        const { stack, name, ...errorProps } = err;
-        req.log.error({ ...errorProps, name }, "jwt token invalid");
-        res.status(401).send({
-          success: false,
-          // error: err.message || 'Invalid token',
-          // data: '401 Unauthorized',
-          // message: 'Invalid token',
-          errorMessage: err.message || "Invalid token",
-        });
-      } else {
-        req.user = decoded;
-        req.log = req.log.child({ username: req.user.username });
-        req.log.info(`Authenticated user ${req.user.username}`);
-        next();
-      }
-    });
-  } else {
-    res.status(401).send({ error: "Unauthenticated request" });
-  }
-};
+
+
 

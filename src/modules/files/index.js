@@ -5,11 +5,12 @@ import {
   deleteFile
 } from './files-controller';
 import express from 'express';
+import { isAuth } from '../../common/middlewares';
 const filesRouter = express.Router();
 
 filesRouter
   .route('/files')
-  .post(uploadNewFile)
+  .post(isAuth, uploadNewFile)
   .get(getListFiles);
 
 filesRouter.route('/files/:publicToken')
