@@ -1,7 +1,6 @@
-import connectWithDb from "../core/mongo";
+import dbConnection from "../core/mongo";
 
 
-export const testSetup = async() => {
-  await connectWithDb();
-  console.log('hello')
+export const testSetup = async () => {
+  await dbConnection();
 }

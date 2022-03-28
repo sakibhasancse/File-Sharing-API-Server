@@ -5,11 +5,10 @@ dotenv.config()
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  // useCreateIndex: true,
 };
 const url = process.env.MONGO_DB_URL;
 
-const connectWithDb = async (cb, em) => {
+const dbConnection = async (cb, em) => {
   const connectionResult = await mongoose.connect(url, options);
   console.log(
     `Connected to mongoDB on database:
@@ -17,4 +16,4 @@ const connectWithDb = async (cb, em) => {
   );
   if (cb && em) cb(em);
 };
-export default connectWithDb;
+export default dbConnection;

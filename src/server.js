@@ -20,7 +20,7 @@ const start = async () => {
     return appHandle;
   };
 
-  const { app, eventEmitter, connectWithDb, logger } = await setup();
+  const { app, eventEmitter, dbConnection, logger } = await setup();
 
   try {
     await configureRoutes(app);
@@ -37,7 +37,7 @@ const start = async () => {
         );
       });
 
-      await connectWithDb(broadcastDatabaseConnectionEstablished, eventEmitter);
+      await dbConnection(broadcastDatabaseConnectionEstablished, eventEmitter);
       logger.info(`Database connection established at ${new Date()}`);
     });
   } catch (err) {
