@@ -3,3 +3,4 @@ node_modules
 /assets/upload/*
 !/assets/upload/.gitkeep
 .idea
+coverage

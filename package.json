@@ -7,7 +7,8 @@
     "start": "nodemon -r esm src/server.js | pino-pretty -c -L",
     "dev": "nodemon -r esm src/server.js",
     "job-start": "node -r esm src/startup/index.js",
-    "test": "jest --force-exit --detectOpenHandles"
+    "babel:clear": "rm -rf ./node_modules/.cache/@babel/register",
+    "test": "npm run babel:clear && NODE_ENV=test mocha --require ./utils/babel-register --timeout 30000 ./src/test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -66,7 +67,9 @@
     "@babel/register": "^7.17.7",
     "@babel/runtime": "^7.17.8",
     "babel-jest": "^27.5.1",
+    "chai": "^4.3.6",
     "jest": "^27.5.1",
+    "mocha": "^9.2.2",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2"
   }

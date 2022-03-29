@@ -1,10 +1,8 @@
 const { testSetup } = require('../setup')
-import app from '../../core/app'
+import server from '../../server'
+const request = require('supertest')(server)
 
-beforeAll(async () => {
-
-  await app.listen(3000, () => { })
-  console.log('calling')
+before(async () => {
 
 })
 
@@ -12,10 +10,19 @@ afterEach(async () => {
   console.log("ca3")
 })
 
-afterAll(async () => {
-  console.log("ca")
+after(async () => {
+  // testSetup()
 })
 
-test('should create a file', () => {
-  expect(4).toBe(4);
-})
+describe('POST /file', () => {
+  it('should create a file', async () => {
+    const response = await request
+      .post('/files').send({
+        file: 'test file'
+      })
+    console.log({response})
+  });
+
+
+});
+
