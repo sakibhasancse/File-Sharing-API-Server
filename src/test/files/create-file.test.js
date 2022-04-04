@@ -1,26 +1,17 @@
-const { testSetup } = require('../setup')
+const { setupDB } = require('../setup')
 import server from '../../server'
-const request = require('supertest')(server)
+const supertest = require('supertest')
+const request = supertest(server)
 
-before(async () => {
 
-})
-
-afterEach(async () => {
-  console.log("ca3")
-})
-
-after(async () => {
-  // testSetup()
-})
+setupDB('testdb', true)
 
 describe('POST /file', () => {
   it('should create a file', async () => {
     const response = await request
-      .post('/files').send({
-        file: 'test file'
-      })
-    console.log({response})
+      .get('/files')
+    assert.equal(response, 'foo')
+    console.log({ response })
   });
 
 
