@@ -8,7 +8,7 @@
     "dev": "nodemon -r esm src/server.js",
     "job-start": "node -r esm src/startup/index.js",
     "babel:clear": "rm -rf ./node_modules/.cache/@babel/register",
-    "test": "npm run babel:clear && NODE_ENV=test mocha --require ./utils/babel-register --timeout 30000 ./src/test/**/*.js --exit"
+    "test": "npm run babel:clear && NODE_ENV=test USE_DEMO_USER=true mocha --require ./utils/babel-register --timeout 30000 ./src/test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,9 @@
     "url": "https://github.com/sakibhasancse/File-Sharing-API-Server/issues"
   },
   "homepage": "https://github.com/sakibhasancse/File-Sharing-API-Server#readme",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "@babel/cli": "^7.17.6",
     "@google-cloud/storage": "^5.18.2",

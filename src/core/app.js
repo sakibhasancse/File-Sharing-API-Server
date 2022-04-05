@@ -8,8 +8,12 @@ import xss from 'xss-clean'
 import rateLimit from 'express-rate-limit'
 import ExpressPinoLogger from "express-pino-logger"
 import dotenv from 'dotenv'
+import appModules from "../modules";
+import {handleError, handleRequest} from "../common/middlewares";
+import swaggerDocument from "../api-documentation/swagger.json"
+import fs from  'fs'
+import path from "path";
 dotenv.config()
-
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -67,8 +71,13 @@ app.use(limiter);
 app.use(express.json());
 app.use(logger);
 
-import swaggerDocument from "../api-documentation/swagger.json"
 
-app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+// app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+ (async function (){
+  await appModules(app);
+  app.use(handleRequest);
+  app.use(handleError);
+}())
 
 export default app;

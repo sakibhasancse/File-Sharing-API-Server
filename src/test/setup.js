@@ -1,10 +1,3 @@
-import dbConnection from "../core/mongo";
-
-
-export const testSetup = async () => {
-  await dbConnection();
-}
-// test-setup.js
 const mongoose = require("mongoose");
 // mongoose.set("useCreateIndex", true);
 mongoose.promise = global.Promise;
@@ -26,8 +19,6 @@ async function dropAllCollections() {
     } catch (error) {
       // Sometimes this error happens, but you can safely ignore it
       if (error.message === "ns not found") return;
-      // This error occurs when you use it.todo. You can
-      // safely ignore this error too
       if (error.message.includes("a background operation is currently running"))
         return;
       console.log(error.message);
@@ -47,7 +38,6 @@ module.exports = {
     after(async () => {
       await removeAllCollections();
     });
-console.log('db connext')
     // Disconnect Mongoose
     after(async () => {
       console.log('db close')

@@ -65,20 +65,17 @@ export const handleValidation = (validate) => (req, res, next) => {
 
 export const isAuth = async (req, res, next) => {
   try {
-    let auth = req.headers.authorization;
-    if (auth) {
-      let user = process.env.USE_DEMO_USER ? true : false
-      if (!user) {
+    // let auth = req.headers.authorization;
+    let user = process.env.USE_DEMO_USER ? true : false
+    if (!user) {
         const validUser = await authenticatedUser(req)
         if (!validUser || validUser && validUser.error) {
           res.status(401).send({ error: "Unauthenticated request" });
         } else {
           return next()
         }
-      }
-      return next()
     } else {
-      res.status(401).send({ error: "Unauthenticated request" });
+      return next()
     }
   } catch (error) {
     res.status(401).send({ error: "Unauthenticated request" });
