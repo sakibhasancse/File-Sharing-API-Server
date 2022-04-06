@@ -48,10 +48,8 @@ export const usersRegister = async (users, req, res) => {
   }
   return res.status(400).json({
     success: false,
-    message: 'Somthing went wrong'
+    message: 'Something went wrong'
   })
-
-
 }
 
 export const usersLogin = async (users, res) => {
