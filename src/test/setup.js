@@ -36,14 +36,14 @@ module.exports = {
 
     // Cleans up database between each test
     after(async () => {
-      await removeAllCollections();
+      // await removeAllCollections();
     });
     // Disconnect Mongoose
     after(async () => {
       console.log('db close')
 
-      await dropAllCollections();
-      await mongoose.connection.close();
+      // await dropAllCollections();
+      // await mongoose.connection.close();
     });
   }
 };

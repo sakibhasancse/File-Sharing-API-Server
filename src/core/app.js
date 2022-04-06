@@ -75,9 +75,9 @@ app.use(logger);
 // app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
  (async function (){
+   app.use(handleRequest);
+   app.use(handleError);
   await appModules(app);
-  app.use(handleRequest);
-  app.use(handleError);
 }())
 
 export default app;

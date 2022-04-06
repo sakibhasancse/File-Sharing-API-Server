@@ -6,8 +6,14 @@ import { size } from 'loadsh'
 
 export const uploadNewFile = async (req, res) => {
     try {
+        const {  user = {}, body = {} } = req
+        if(!user.userId){
+            return res.status(400).send({message: '`author` is required.'})
+        }
         await processFile(req, res);
-        const { file = {}, user = {}, body = {} } = req
+
+        const { file = {} } = req
+
         if (!size(file)) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
