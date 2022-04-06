@@ -4,4 +4,5 @@ node_modules
 !/assets/upload/.gitkeep
 .idea
 coverage
-src/test/test-helper
+/src/test/*
+/src/test/test-helper/.gitkeep
