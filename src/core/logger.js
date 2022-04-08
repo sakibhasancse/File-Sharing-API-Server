@@ -1,4 +1,5 @@
 const winston = require("winston");
+const pinoLogger = require("pino")();
 
 const alignColorsAndTime = winston.format.combine(
   winston.format.colorize({
@@ -24,9 +25,8 @@ const winstonLogger = winston.createLogger({
   ],
 });
 
-const pinoLogger = require("pino")();
 
-const logOption = process.env.logger || "winston";
+const logOption = process.env.LOGGER_NAME || "winston";
 
 if (logOption === "pino") module.exports = pinoLogger;
 else module.exports = winstonLogger;

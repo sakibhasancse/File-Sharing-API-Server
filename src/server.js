@@ -15,13 +15,10 @@ const start = async () => {
         };
 
         eventEmitter.on("databaseConnected", () => {
-          logger.info(
-            "Database Connected"
-          );
+            logger.info(`Database connected at ${new Date()}`);
         });
 
         await dbConnection(broadcastDatabaseConnectionEstablished, eventEmitter);
-        logger.info(`Database connected at ${new Date()}`);
       });
 
   } catch (err) {

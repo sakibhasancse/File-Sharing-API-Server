@@ -1,4 +1,4 @@
-const fs = require("fs");
+import  fs from "fs"
 
 const appModule = async (app) => {
   const rootPath = __dirname;
@@ -10,7 +10,6 @@ const appModule = async (app) => {
         const module = require(`./${moduleName}`);
         if (module.init) {
           await module.init(app);
-          console.log(`Module ${moduleName} loaded`);
         }
       }
     })

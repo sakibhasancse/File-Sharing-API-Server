@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import server from '../../core/app'
 const supertest = require('supertest')
 const request = supertest(server)

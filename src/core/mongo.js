@@ -1,19 +1,28 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import logger from '../core/logger'
+
 dotenv.config()
 
-const options = {
+const MONGO_CONFIG = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-const url = process.env.MONGO_DB_URL;
+const MONGO_URI = process.env.MONGO_DB_URL;
 
 const dbConnection = async (cb, em) => {
-  const connectionResult = await mongoose.connect(url, options);
-  console.log(
-    `Connected to mongoDB on database:
-    ${connectionResult.connections[0].name} at ${new Date().toDateString()}`
-  );
-  if (cb && em) cb(em);
+  try{
+    const db = await mongoose.connect(MONGO_URI, MONGO_CONFIG);
+
+    logger.info(
+        `Db connected, db name: ${db.connections[0].name}`
+    );
+    if (cb && em) cb(em);
+  }catch (error) {
+    logger.error('DB connection Failed')
+    console.error(error.message)
+    process.exit(1)
+  }
+
 };
 export default dbConnection;
