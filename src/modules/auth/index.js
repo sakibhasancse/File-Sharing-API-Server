@@ -11,7 +11,7 @@ router
   .post(handleValidation(user), userRegister)
 
 router
-  .route('/signin')
+  .route('/login')
   // .post(handleValidation (login), userLogin)
   .post(userLogin)
 
