@@ -2,23 +2,27 @@ import {
   uploadNewFile,
   getListFiles,
   downloadFile,
-  deleteFile
-} from './files-controller';
-import express from 'express';
-import { isAuth } from '../../common/middlewares';
-const filesRouter = express.Router();
+  deleteFile,
+  streamFile
+} from './files-controller'
+import express from 'express'
+import { isAuth } from '../../common/middlewares'
+const filesRouter = express.Router()
 
 filesRouter
   .route('/files')
   .post(isAuth, uploadNewFile)
-  .get(isAuth, getListFiles);
+  .get(isAuth, getListFiles)
 
 filesRouter.route('/files/:publicToken')
   .get(downloadFile)
-  .delete(deleteFile);
+  .delete(deleteFile)
+
+filesRouter.route('/stream/files/:accessToken')
+  .get(streamFile)
 
 const init = async (app) => {
-  app.use("/api", filesRouter);
-  return app;
-};
-module.exports = { init };
+  app.use('/api', filesRouter)
+  return app
+}
+module.exports = { init }

@@ -3,6 +3,7 @@ import multer from 'multer'
 import GoogleCloudStorage from '@google-cloud/storage'
 import path from 'path'
 import { JwtToken } from './../../core'
+import fs from 'fs'
 const fileSize = process.env.MAX_FILE_SIZE || 2
 const maxSize = fileSize * 1024 * 1024
 const hasCloudStorage = !!process.env.GOOGLE_CLOUD_PROJECT_ID
@@ -38,4 +39,10 @@ export const fileTokens = async (file) => {
     privateToken
   }
   return tokens
+}
+
+export const getFileSizeAndResolvedPath = (filePath) => {
+  const resolvedPath = path.resolve(filePath)
+  const stat = fs.statSync(resolvedPath)
+  return { fileSize: stat.size, resolvedPath }
 }

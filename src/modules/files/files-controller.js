@@ -1,5 +1,5 @@
 import { verifyToken } from '../../core/jwtToken'
-import { fileTokens, processFile } from './files-helper'
+import { fileTokens, getFileSizeAndResolvedPath, processFile } from './files-helper'
 import { googleCloudStorage, saveAnFile, getFile, getFileLists, removeFile } from './files-service'
 import fs from 'fs'
 import { size } from 'loadsh'
@@ -109,5 +109,45 @@ export const deleteFile = async (req, res) => {
     res.status(500).send({
       message: 'Could not download the file. ' + err
     })
+  }
+}
+
+export const streamFile = async (req, res) => {
+  try {
+    // const { publicToken } = req.params
+    // const tokenResult = await verifyToken({ token: publicToken, type: 'File' })
+    //
+    // if (tokenResult && tokenResult.error || !tokenResult) {
+    //   return res.status(401).json({
+    //     success: false,
+    //     message: tokenResult.error
+    //   })
+    // }
+
+    // const file = await getFile({ path: tokenResult.data.path })
+
+    const file = await getFile({ })
+    // Link expired
+    if (!file) {
+      return res.json({ error: 'Link has been expired.' })
+    }
+
+    const filePath = `${__dirname}/../../../assets/upload/${file.path}`
+
+    const { fileSize, resolvedPath } = getFileSizeAndResolvedPath(filePath)
+
+    const requestRangeHeader = req.headers.range
+
+    if (!requestRangeHeader) {
+      res.writeHead(200, {
+        'Content-Length': fileSize,
+        'Content-Type': 'video/mp4'
+      })
+      fs.createReadStream(resolvedPath).pipe(res)
+    } else {
+
+    }
+  } catch (e) {
+    throw new Error(e.message)
   }
 }
